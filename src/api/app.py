@@ -6,7 +6,7 @@ import os
 
 app = FastAPI(title="Credit Default API")
 
-# Пытаемся загрузить модель при старте сервера
+# загрузка модели при старте сервера
 MODEL_PATH = "models/credit_model.pkl"
 if os.path.exists(MODEL_PATH):
     model = joblib.load(MODEL_PATH)
@@ -14,7 +14,7 @@ else:
     model = None
 
 
-# Схема ожидаемых данных (Pydantic валидация)
+# схема ожидаемых данных 
 class ClientData(BaseModel):
     LIMIT_BAL: float = Field(..., ge=0.0)
     AGE: int = Field(..., ge=20, le=100)
@@ -34,10 +34,10 @@ def predict_default(data: ClientData):
         raise HTTPException(status_code=500, detail="Модель не найдена. Обучите ее перед запуском API.")
 
     try:
-        # Превращаем JSON от пользователя в DataFrame
+        #  JSON от пользователя в DataFrame
         df = pd.DataFrame([data.model_dump()])
 
-        # Делаем предсказание
+        #  предсказание
         pred = model.predict(df)[0]
         prob = model.predict_proba(df)[0][1]
 
