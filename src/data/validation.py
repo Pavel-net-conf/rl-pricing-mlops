@@ -2,7 +2,7 @@ import pandera.pandas as pa
 from pandera import Column, Check
 import pandas as pd
 
-# Схема ожидаемых данных
+# схема ожидаемых данных
 pd_schema = pa.DataFrameSchema({
     "LIMIT_BAL": Column(float, Check.ge(0.0), nullable=False),
     "AGE": Column(int, Check.in_range(20, 100), nullable=False),
