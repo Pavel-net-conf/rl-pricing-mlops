@@ -18,14 +18,14 @@ def prepare_data():
         data = data.drop('ID', axis=1)
 
     print("Feature Engineering...")
-    # Биннинг возраста
+    # биннинг возраста
     data['age_group'] = pd.cut(
         data['AGE'],
         bins=[20, 30, 40, 50, 100],
         labels=['20-30', '30-40', '40-50', '50+']
     )
 
-    # Агрегация платежей за 6 месяцев
+    # агрегация платежей за 6 месяцев
     pay_cols = ['PAY_AMT1', 'PAY_AMT2', 'PAY_AMT3', 'PAY_AMT4', 'PAY_AMT5', 'PAY_AMT6']
     data['avg_payment'] = data[pay_cols].mean(axis=1)
 
