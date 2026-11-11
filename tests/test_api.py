@@ -11,7 +11,7 @@ def test_read_root():
 
 
 def test_predict_valid_data():
-    # Имитируем правильный запрос пользователя
+    # имитация правильного запроса пользователя
     payload = {
         "LIMIT_BAL": 50000.0,
         "AGE": 30,
@@ -28,7 +28,7 @@ def test_predict_valid_data():
 
 
 def test_predict_invalid_data():
-    # Имитируем кривой запрос (отрицательный возраст)
+    # имитация не верного запроса по возрасту
     bad_payload = {
         "LIMIT_BAL": 50000.0,
         "AGE": -5,
@@ -37,4 +37,4 @@ def test_predict_invalid_data():
         "age_group": "20-30"
     }
     response = client.post("/predict", json=bad_payload)
-    assert response.status_code == 422  # Ошибка валидации
+    assert response.status_code == 422  # ошибка валидации
